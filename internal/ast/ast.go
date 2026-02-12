@@ -2970,6 +2970,10 @@ type DoStatement struct {
 	Expression *Expression // Expression
 }
 
+func IsDoStatement(node *Node) bool {
+	return node.Kind == KindDoStatement
+}
+
 func (f *NodeFactory) NewDoStatement(statement *Statement, expression *Expression) *Node {
 	data := &DoStatement{}
 	data.Statement = statement
@@ -3008,6 +3012,10 @@ type WhileStatement struct {
 	compositeNodeBase
 	Expression *Expression // Expression
 	Statement  *Statement  // Statement
+}
+
+func IsWhileStatement(node *Node) bool {
+	return node.Kind == KindWhileStatement
 }
 
 func (f *NodeFactory) NewWhileStatement(expression *Expression, statement *Statement) *Node {
@@ -3157,6 +3165,10 @@ type BreakStatement struct {
 	Label *IdentifierNode // IdentifierNode. Optional
 }
 
+func IsBreakStatement(node *Node) bool {
+	return node.Kind == KindBreakStatement
+}
+
 func (f *NodeFactory) NewBreakStatement(label *IdentifierNode) *Node {
 	data := &BreakStatement{}
 	data.Label = label
@@ -3187,6 +3199,10 @@ func (node *BreakStatement) Clone(f NodeFactoryCoercible) *Node {
 type ContinueStatement struct {
 	StatementBase
 	Label *IdentifierNode // IdentifierNode. Optional
+}
+
+func IsContinueStatement(node *Node) bool {
+	return node.Kind == KindContinueStatement
 }
 
 func (f *NodeFactory) NewContinueStatement(label *IdentifierNode) *Node {
@@ -3262,6 +3278,10 @@ type WithStatement struct {
 	compositeNodeBase
 	Expression *Expression // Expression
 	Statement  *Statement  // Statement
+}
+
+func IsWithStatement(node *Node) bool {
+	return node.Kind == KindWithStatement
 }
 
 func (f *NodeFactory) NewWithStatement(expression *Expression, statement *Statement) *Node {
@@ -3345,6 +3365,10 @@ type CaseBlock struct {
 	LocalsContainerBase
 	compositeNodeBase
 	Clauses *NodeList // NodeList[*CaseOrDefaultClauseNode]
+}
+
+func IsCaseBlock(node *Node) bool {
+	return node.Kind == KindCaseBlock
 }
 
 func (f *NodeFactory) NewCaseBlock(clauses *NodeList) *Node {
@@ -3569,6 +3593,10 @@ func IsCatchClause(node *Node) bool {
 
 type DebuggerStatement struct {
 	StatementBase
+}
+
+func IsDebuggerStatement(node *Node) bool {
+	return node.Kind == KindDebuggerStatement
 }
 
 func (f *NodeFactory) NewDebuggerStatement() *Node {
@@ -6246,6 +6274,10 @@ type NoSubstitutionTemplateLiteral struct {
 	TemplateLiteralLikeBase
 }
 
+func IsNoSubstitutionTemplateLiteral(node *Node) bool {
+	return node.Kind == KindNoSubstitutionTemplateLiteral
+}
+
 func (f *NodeFactory) NewNoSubstitutionTemplateLiteral(text string, templateFlags TokenFlags) *Node {
 	data := &NoSubstitutionTemplateLiteral{}
 	data.Text = text
@@ -6366,6 +6398,10 @@ type PostfixUnaryExpression struct {
 	ExpressionBase
 	Operand  *Expression // Expression
 	Operator Kind
+}
+
+func IsPostfixUnaryExpression(node *Node) bool {
+	return node.Kind == KindPostfixUnaryExpression
 }
 
 func (f *NodeFactory) NewPostfixUnaryExpression(operand *Expression, operator Kind) *Node {
@@ -6585,6 +6621,10 @@ type AsExpression struct {
 	ExpressionBase
 	Expression *Expression // Expression
 	Type       *TypeNode   // TypeNode
+}
+
+func IsAsExpression(node *Node) bool {
+	return node.Kind == KindAsExpression
 }
 
 func (f *NodeFactory) NewAsExpression(expression *Expression, typeNode *TypeNode) *Node {
@@ -7657,6 +7697,10 @@ type TypeAssertion struct {
 	Expression *Expression // Expression
 }
 
+func IsTypeAssertionExpression(node *Node) bool {
+	return node.Kind == KindTypeAssertionExpression
+}
+
 func (f *NodeFactory) NewTypeAssertion(typeNode *TypeNode, expression *Expression) *Node {
 	data := &TypeAssertion{}
 	data.Type = typeNode
@@ -7734,6 +7778,10 @@ func (f *NodeFactory) UpdateUnionTypeNode(node *UnionTypeNode, types *TypeList) 
 		return updateNode(f.NewUnionTypeNode(types), node.AsNode(), f.hooks)
 	}
 	return node.AsNode()
+}
+
+func IsUnionTypeNode(node *Node) bool {
+	return node.Kind == KindUnionType
 }
 
 func (f *NodeFactory) NewUnionTypeNode(types *NodeList) *Node {
@@ -7903,6 +7951,10 @@ func IsInferTypeNode(node *Node) bool {
 type ArrayTypeNode struct {
 	TypeNodeBase
 	ElementType *TypeNode // TypeNode
+}
+
+func IsArrayTypeNode(node *Node) bool {
+	return node.Kind == KindArrayType
 }
 
 func (f *NodeFactory) NewArrayTypeNode(elementType *TypeNode) *Node {
@@ -8808,6 +8860,10 @@ type TemplateLiteralTypeNode struct {
 	TypeNodeBase
 	Head          *TemplateHeadNode // TemplateHeadNode
 	TemplateSpans *NodeList         // NodeList[*TemplateLiteralTypeSpanNode]
+}
+
+func IsTemplateLiteralTypeNode(node *Node) bool {
+	return node.Kind == KindTemplateLiteralType
 }
 
 func (f *NodeFactory) NewTemplateLiteralTypeNode(head *TemplateHeadNode, templateSpans *NodeList) *Node {
